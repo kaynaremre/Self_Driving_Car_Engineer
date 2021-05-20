@@ -3,6 +3,7 @@
 #include <vector>
 #include <Eigen/Dense>
 
+template<typename T> struct TypeDisplay;
 
 
 using std::cout;
@@ -22,6 +23,8 @@ MatrixXd I; // Identity matrix
 MatrixXd Q;	// process covariance matrix
 
 vector<VectorXd> measurements;
+template<typename T> struct TypeDisplay;
+
 void filter(VectorXd &x, MatrixXd &P);
 
 
@@ -62,6 +65,9 @@ int main() {
   single_meas << 3;
   measurements.push_back(single_meas);
 
+ //auto TD = TypeDisplay<decltype(single_meas){}>;
+
+
   // call Kalman filter algorithm
   filter(x, P);
 
@@ -75,13 +81,19 @@ void filter(VectorXd &x, MatrixXd &P) {
 
     VectorXd z = measurements[n];
     // TODO: YOUR CODE HERE
-		
+	
     // KF Measurement update step
-		 
+    MatrixXd error = z - H * x;
+    MatrixXd s = H * P * H.transpose() + R;
+    MatrixXd K = P* H.transpose() * s.inverse();
+    x = x + (K * error);
+    P = (I - K * H) * P;
     // new state
 		
     // KF Prediction step
-		
+    x = F * x + u;
+    P = F * P * F.transpose();
+    
     cout << "x=" << endl <<  x << endl;
     cout << "P=" << endl <<  P << endl;
   }
