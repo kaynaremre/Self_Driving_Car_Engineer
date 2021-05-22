@@ -46,7 +46,9 @@ MatrixXd CalculateJacobian(const VectorXd& x_state) {
     // TODO: YOUR CODE HERE 
 
     // check division by zero
-    
+    if((px2 + py2) == 0){
+        return Hj;
+    }
     // compute the Jacobian matrix
     Hj(0,0) = px / root( px2 + py2 );
     Hj(1,0) = -py / ( px2 + py2 );
