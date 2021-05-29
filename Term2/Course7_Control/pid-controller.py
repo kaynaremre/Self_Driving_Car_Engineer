@@ -127,15 +127,15 @@ def run(robot, tau_p, tau_d, tau_i, n=100, speed=1.0):
     return x_trajectory, y_trajectory
 
 
-x_trajectory, y_trajectory = run(robot, 0.2, 3.0, 0)
-x2_trajectory, y2_trajectory = run(robot2, 0.2, 3.0, 0.004)
+x_trajectory, y_trajectory = run(robot, 0.2, 3.0, 0.004)
+x2_trajectory, y2_trajectory = run(robot2, 0.2, 3.0, 0.006)
 
 n = len(x_trajectory)
 
 fig, (ax1, ax2) = plt.subplots(2,1, figsize=(8, 8))
 ax1.plot(x_trajectory, y_trajectory, 'g', label='PD controller')
 ax1.plot(x_trajectory, np.zeros(n), 'r', label='reference')
-ax2.plot(x2_trajectory, y2_trajectory, 'g', label='PD controller')
+ax2.plot(x2_trajectory, y2_trajectory, 'g', label='PID controller')
 ax2.plot(x2_trajectory, np.zeros(n), 'r', label='reference')
 
 leg1 = ax1.legend()
