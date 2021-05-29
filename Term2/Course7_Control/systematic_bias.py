@@ -118,6 +118,9 @@ def run_p(robot, tau, n=100, speed=1.0):
 robot = Robot()
 robot.set(0, 1, 0)
 
+robot2 = Robot()
+robot2.set(0, 1, 0)
+
 def run(robot, tau_p, tau_d, n=100, speed=1.0):
     x_trajectory = []
     y_trajectory = []
@@ -136,10 +139,17 @@ def run(robot, tau_p, tau_d, n=100, speed=1.0):
     return x_trajectory, y_trajectory
     
 x_trajectory, y_trajectory = run(robot, 0.2, 0)
+x2_trajectory, y2_trajectory = run(robot2, 0.2, 3.0)
+
+
 n = len(x_trajectory)
 
-fig, ax1 = plt.subplots(1, 1, figsize=(8, 4))
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(8, 8))
 ax1.plot(x_trajectory, y_trajectory, 'g', label='PD controller')
 ax1.plot(x_trajectory, np.zeros(n), 'r', label='reference')
-leg = ax1.legend()
+ax2.plot(x2_trajectory, y2_trajectory, 'g', label='PD controller')
+ax2.plot(x2_trajectory, np.zeros(n), 'r', label='reference')
+
+leg1 = ax1.legend()
+leg2 = ax2.legend()
 plt.show()
