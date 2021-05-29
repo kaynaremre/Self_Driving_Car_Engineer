@@ -12,4 +12,9 @@ def sense(p, Z):
     sum_q = sum(q)
     q = [a/sum_q for a in q]
     return q
+
+def move(p, U):
+    U = U % len(p)
+    q = p[-U:] + p[:-U]
+
 print (sense(p,Z))
