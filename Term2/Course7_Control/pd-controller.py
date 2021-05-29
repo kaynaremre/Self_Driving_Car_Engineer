@@ -130,6 +130,8 @@ def run(robot, tau_p, tau_d, n=100, speed=1.0):
         print('[x=%.5f y=%.5f orient=%.5f]' % (robot.x, robot.y, robot.orientation))
         x_trajectory.append(robot.x)
         y_trajectory.append(robot.y)
+    x_trajectory.pop(0)
+    y_trajectory.pop(0)
     return x_trajectory, y_trajectory
     
 x_trajectory, y_trajectory = run(robot, 0.2, 3.0)
