@@ -24,8 +24,13 @@ def sense(p, Z):
 def move(p, U):
     q = []
     for i in range(len(p)):
-        q.append(p[(i-U)%len(p)])
+        s = pExact * p[(i - U) % len(p)]
+        s = s + pOvershoot * p[(i - U - 1) % len(p)]
+        s = s + pUndershoot * p[(i - U + 1) % len(p)]
+        q.append(s)
     return q
     
-
-print (move(p, 1))
+for i in range(1000):
+    p = move(p,1)
+    
+print (p)
